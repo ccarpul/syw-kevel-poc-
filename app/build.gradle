@@ -19,6 +19,21 @@ android {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
 
+    buildTypes.each {
+        Properties properties = new Properties()
+        properties.load(project.rootProject.file("local.properties").newDataInputStream())
+
+        def NETWORK_ID = properties.getProperty("NETWORK_ID", "0L")
+        it.buildConfigField 'Long', "NETWORK_ID", NETWORK_ID
+
+        def AD_TYPES = properties.getProperty("AD_TYPES", "0")
+        it.buildConfigField 'Integer', "AD_TYPES", AD_TYPES
+
+
+        def SIDE_ID = properties.getProperty("SIDE_ID", "0L")
+        it.buildConfigField 'Long', "SIDE_ID", SIDE_ID
+    }
+
     buildTypes {
         release {
             minifyEnabled false
