@@ -73,13 +73,10 @@ class MainActivity : AppCompatActivity() {
                 loadDataWithBaseURL("", data, MIME_TYPE, ENCODING, "")
             }
 
-        //TODO
-        /*addJavascriptInterface(
+        addJavascriptInterface(
             WebViewInterface(decision),
             JAVASCRIPT_INTERFACE_NAME
         )
-
-         */
     }
 
     inner class WebClientAddCard : WebViewClient() {
