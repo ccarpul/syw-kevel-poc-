@@ -1,6 +1,8 @@
 package com.syw.pockevel
 
 import android.annotation.SuppressLint
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -86,7 +88,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun navigate(url: String) {
-        Log.i(MainActivity.TAG, url)
+        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+        startActivity(intent)
     }
 
     inner class WebClientAddCard : WebViewClient() {
