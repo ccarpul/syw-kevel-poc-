@@ -21,21 +21,21 @@ object KevelManager {
             .addPlacement(placement)
             .build()
 
-    fun Decision.registerFirePixel(
-        fireType: String,
-        onSuccess: () -> Unit,
-        onError: () -> Unit
+    fun registerFirePixel(
+        fireType: String?,
+        onSuccess: (() -> Unit)? = null,
+        onError: (() -> Unit)? = null
     ) {
         adzerkSdkInstance()?.let {
             it.firePixel(
                 fireType,
                 object : AdzerkSdk.FirePixelListener {
                     override fun success(response: FirePixelResponse?) {
-                        onSuccess()
+                        onSuccess?.invoke()
                     }
 
                     override fun error(error: AdzerkSdk.AdzerkError?) {
-                        onError()
+                        onError?.invoke()
                     }
                 }
             )

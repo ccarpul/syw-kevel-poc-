@@ -3,39 +3,22 @@ package com.syw.pockevel.utils
 import android.util.Log
 import android.webkit.JavascriptInterface
 import com.adzerk.android.sdk.rest.Decision
+import com.syw.pockevel.MainActivity
 import com.syw.pockevel.utils.KevelManager.registerFirePixel
 
-class WebViewInterface(private val decision: Decision?) {
+class WebViewInterface(private val decision: Decision?, private val callback: (String) -> Unit) {
 
-    /** Show a toast from the web page  */
     @JavascriptInterface
-    fun postMessageClick() {
-        Log.i(javaClass.simpleName, "Register Click")
+    fun postMessage(url: String) {
         decision?.let {
-            it.registerFirePixel(
-                decision.clickUrl,
+            registerFirePixel(
+                it.clickUrl,
                 {
-
+                    Log.i(MainActivity.TAG, "Click registered in kevel")
+                    callback(url)
                 },
                 {
-
-                }
-            )
-        }
-    }
-
-
-
-    fun postMessageImpression() {
-        Log.i(javaClass.simpleName, "Register Impression")
-        decision?.let {
-            it.registerFirePixel(
-                decision.impressionUrl,
-                {
-
-                },
-                {
-
+                    Log.i(MainActivity.TAG, "Error while try to register event")
                 }
             )
         }
